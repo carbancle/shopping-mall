@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../utils/axios";
-import { ILoginUser, IRegisterUser } from "../interface/user";
+import { ILoginUser, IRegisterUser } from "../interface/User";
 
 export const registerUser = createAsyncThunk(
   "user/registerUser",

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../store";
 import { loginUser } from "../../store/thunkFunction";
-import { ILoginUser } from "../../interface/user";
+import { ILoginUser } from "../../interface/User";
 
 export default function LoginPage() {
   const {
