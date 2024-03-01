@@ -15,3 +15,14 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(e);
   }
 );
+
+axiosInstance.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (e) {
+    if (e.response.data === "jwt expired") {
+      window.location.reload();
+    }
+  }
+);

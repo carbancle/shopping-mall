@@ -8,13 +8,15 @@ process.env.JWT_SECRET;
 const router = Router();
 
 router.get("/auth", auth, async (req: Request, res: Response, next) => {
-  // return res.status(200).json({
-  //   id: req.user._id,
-  //   email: req.user.email,
-  //   name: req.user.name,
-  //   role: req.user.role,
-  //   image: req.user.image,
-  // });
+  return res.status(200).json({
+    id: req.currentUser._id,
+    email: req.currentUser.email,
+    name: req.currentUser.name,
+    role: req.currentUser.role,
+    image: req.currentUser.image,
+    cart: req.currentUser.cart,
+    history: req.currentUser.history,
+  });
 });
 
 router.post("/register", async (req: Request, res: Response, next) => {
