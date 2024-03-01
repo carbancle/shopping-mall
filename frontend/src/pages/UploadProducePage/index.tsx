@@ -4,14 +4,6 @@ import { axiosInstance } from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import FileUpload from "../../components/FileUpload";
 
-export interface IProduct {
-  title: string,
-  description: string,
-  price: number,
-  continents: number,
-  images: []
-}
-
 const continents = [
   { key: 1, value: "Africa" },
   { key: 2, value: "Europe" },

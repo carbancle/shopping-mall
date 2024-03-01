@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { registerUser } from "../../store/thunkFunction";
 import { useAppDispatch } from "../../store";
-import { IRegisterUser } from "../../interface/user";
+import { IRegisterUser } from "../../interface/User";
 
 export default function RegisterPage() {
   const {

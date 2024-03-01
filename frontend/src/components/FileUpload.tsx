@@ -18,8 +18,6 @@ export default function FileUpload({ images, onImageChange }: {
     try {
       const response = await axiosInstance.post('/products/image', formData, config);
       onImageChange([...images, response.data.fileName]);
-
-      console.log("onImageChange?", onImageChange);
     } catch (e) {
       console.log(e);
     }
