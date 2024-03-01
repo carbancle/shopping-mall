@@ -6,7 +6,10 @@ import RegisterPage from './pages/RegisterPage';
 import Layout from './layout/Layout';
 import LandingPage from './pages/LandingPage';
 import ProtectedRoutes from './components/ProtectedRoutes';
-import ProtectedPage from './pages/ProtectedPage';
+import UploadProductPage from './pages/UploadProducePage';
+import DetailProductPage from './pages/DetailProductPage';
+import CartPage from './pages/CartPage';
+import HistoryPage from './pages/HistoryPage';
 
 
 
@@ -42,8 +45,20 @@ function App() {
           element: <ProtectedRoutes />,
           children: [
             {
-              path: "protected",
-              element: <ProtectedPage />
+              path: "product/upload",
+              element: <UploadProductPage />
+            },
+            {
+              path: "product/:productId",
+              element: <DetailProductPage />
+            },
+            {
+              path: "user/cart",
+              element: <CartPage />
+            },
+            {
+              path: "history",
+              element: <HistoryPage />
             },
           ]
         },

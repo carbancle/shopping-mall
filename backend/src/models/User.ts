@@ -1,4 +1,4 @@
-import { Model, Schema, model } from "mongoose";
+import { Model, Schema, model, Types } from "mongoose";
 import bcrypt from "bcryptjs";
 
 interface IUser {
@@ -7,6 +7,8 @@ interface IUser {
   password: string;
   role: number;
   image?: string;
+  cart?: [];
+  history?: [];
 }
 
 interface IUserMethods {
@@ -34,6 +36,14 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>({
     default: 0,
   },
   image: String,
+  cart: {
+    type: Array,
+    default: [],
+  },
+  history: {
+    type: Array,
+    default: [],
+  },
 });
 
 userSchema.pre("save", async function (next) {

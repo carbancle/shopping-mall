@@ -35,15 +35,12 @@ export async function connectToDataBase() {
 connectToDataBase();
 
 app.use("/users", require("./routes/users"));
+app.use("/products", require("./routes/products"));
 
 // error 처리, error 타입을 임시값으로 any로 설정, 추후 수정
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   res.send(error.message || "서버에서 에러가 발생하였습니다.");
   res.status(error.status || 500);
-});
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("안녕하세요. 1111");
 });
 
 app.listen(PORT, () => {
