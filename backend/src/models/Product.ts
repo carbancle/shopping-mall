@@ -47,6 +47,19 @@ const productSchema = new Schema<IProduct, ProductModel, IProductMethods>({
   },
 });
 
+productSchema.index(
+  {
+    title: "text",
+    description: "text",
+  },
+  {
+    weights: {
+      title: 5,
+      description: 1,
+    },
+  }
+);
+
 const Product = model<IProduct, ProductModel>("Product", productSchema);
 
 export { Product };

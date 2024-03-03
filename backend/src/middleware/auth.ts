@@ -25,7 +25,6 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     // types 폴더에 express.d.ts 파일을 생성하여 currentUser에 대한 type: User["_id"] 를 저장
     // type에 대한 정보는 생성한 user 변수의 Tyeps.ObjectId 인 것으로 보이나 확인 필요
     req.currentUser = user;
-    console.log("현재 유저의 정보", req.currentUser);
     next();
   } catch (e) {
     next(e);

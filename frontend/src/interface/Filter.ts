@@ -4,7 +4,7 @@ export interface IContinents {
 }
 
 export interface IPrice {
-  id: number;
+  _id: number;
   name: string;
-  array: [];
+  array: number[];
 }

@@ -23,15 +23,31 @@ router.get("/", async (req: Request, res: Response, next) => {
   const sortBy = req.query.sortBy ? String(req.query.sortBy) : "_id";
   const limit = req.query.limit ? Number(req.query.limit) : 20;
   const skip = req.query.skip ? Number(req.query.skip) : 0;
+  const term = req.query.searchTerm;
 
   let findArgs: any = {};
   const filter: string[] = req.query.filters as string[];
 
   for (let key in filter) {
     if (filter[key].length > 0) {
-      findArgs[key] = filter[key];
+      if (key === "price") {
+        findArgs[key] = {
+          // Greater then equal
+          $gte: filter[key][0],
+          // less then equal
+          $lte: filter[key][1],
+        };
+      } else {
+        findArgs[key] = filter[key];
+      }
     }
   }
+
+  if (term) {
+    findArgs["$text"] = { $search: term };
+  }
+
+  console.log(findArgs);
 
   try {
     const products = await Product.find(findArgs)
@@ -47,6 +63,30 @@ router.get("/", async (req: Request, res: Response, next) => {
       products,
       hasMore,
     });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get(`/:id`, async (req: Request, res: Response, next) => {
+  const type = req.query.type;
+  let productIds: string | string[] = req.params.id;
+
+  if (type === "array") {
+    // 요청 값이 id = 123123, 231231, 321321 와 같이 오는 것을
+    // productIds = ['123123, '231231', '321321'] 으로 바꿔준다
+    let ids = productIds.split(",");
+    productIds = ids.map((item) => {
+      return item;
+    });
+  }
+  // productId를 이용해서 DB에서 productId과 같은 상품의 정보를 가져온다.
+  try {
+    const product = await Product.find({ _id: { $in: productIds } }).populate(
+      "writer"
+    );
+
+    return res.status(200).send(product);
   } catch (err) {
     next(err);
   }
