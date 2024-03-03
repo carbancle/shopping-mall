@@ -29,7 +29,7 @@ export const continents = [
   },
 ];
 
-export const price = [
+export const prices = [
   {
     _id: 0,
     name: "모두",
@@ -37,27 +37,27 @@ export const price = [
   },
   {
     _id: 1,
-    name: "0 ~ 199원",
-    array: [0, 199],
+    name: "0 ~ 4999원",
+    array: [0, 4999],
   },
   {
     _id: 2,
-    name: "200 ~ 249원",
-    array: [200, 249],
+    name: "5000 ~ 5999원",
+    array: [5000, 5999],
   },
   {
     _id: 3,
-    name: "250 ~ 279원",
-    array: [250, 279],
+    name: "6000 ~ 6999원",
+    array: [6000, 6999],
   },
   {
     _id: 4,
-    name: "280 ~ 299원",
-    array: [280, 299],
+    name: "7000 ~ 7999원",
+    array: [7000, 7999],
   },
   {
     _id: 5,
-    name: "300원 이상",
-    array: [300, 1500000],
+    name: "8000원 이상",
+    array: [8000, 1500000],
   },
 ];

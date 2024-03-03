@@ -6,13 +6,14 @@ import SearchInput from "./Sections/SearchInput";
 import { axiosInstance } from "../../utils/axios";
 import { LandingStatus } from "../../interface/LandingStatus";
 import { IProduct } from "../../interface/Product";
-import { continents } from "../../utils/filterData";
+import { continents, prices } from "../../utils/filterData";
 
 export default function LandingPage() {
   const limit = 4;
   const [products, setProducts] = useState<IProduct[]>([]);
   const [skip, setSkip] = useState(0);
   const [hasMore, setHasMore] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
     continents: [],
     price: [],
@@ -52,6 +53,7 @@ export default function LandingPage() {
       limit,
       loadMore: true,
       filters,
+      searchTerm,
     }
     fetchProducts(body);
     setSkip(skip + limit);
@@ -59,10 +61,41 @@ export default function LandingPage() {
 
   const handleFilters = (newFilterData: object, category: string) => {
     const newFilters: any = { ...filters };
+    console.log("필터데이터 정보?", newFilterData);
     newFilters[category] = newFilterData;
+    if (category === "price") {
+      const priceValues = handlePrice(newFilterData);
+      console.log("price에서 filterData?", newFilterData);
+      newFilters[category] = priceValues;
+    }
 
     showFilterResult(newFilters);
     setFilters(newFilters);
+  }
+
+  const handlePrice = (value: object) => {
+    let array: number[] = [];
+
+    for (let key in prices) {
+      if (prices[key]._id === parseInt(String(value), 10)) {
+        array = prices[key].array
+
+      }
+    }
+    return array;
+  }
+
+  const handleSearchTerm = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e);
+    const body = {
+      skip: 0,
+      limit,
+      filters,
+      searchTerm: e.target.value
+    }
+    setSkip(0);
+    setSearchTerm(e.target.value);
+    fetchProducts(body);
   }
 
   const showFilterResult = (filters: object) => {
@@ -70,6 +103,7 @@ export default function LandingPage() {
       skip: 0,
       limit,
       filters,
+      searchTerm,
     }
     fetchProducts(body);
     setSkip(0);
@@ -86,12 +120,12 @@ export default function LandingPage() {
           <CheckBox continents={continents} checkedContinents={filters.continents} onFilters={(filters: object) => handleFilters(filters, "continents")} />
         </div>
         <div className="w-1/2">
-          <RadioBox />
+          <RadioBox prices={prices} checkedPrice={filters.price} onFilters={(filters: object) => handleFilters(filters, "price")} />
         </div>
       </div>
       {/* Search */}
-      <div className="flex justify-end">
-        <SearchInput />
+      <div className="flex justify-end mb-3">
+        <SearchInput searchTerm={searchTerm} onSearch={handleSearchTerm} />
       </div>
       {/* Card */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
