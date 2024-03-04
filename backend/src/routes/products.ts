@@ -47,7 +47,7 @@ router.get("/", async (req: Request, res: Response, next) => {
     findArgs["$text"] = { $search: term };
   }
 
-  console.log(findArgs);
+  // console.log(findArgs);
 
   try {
     const products = await Product.find(findArgs)
