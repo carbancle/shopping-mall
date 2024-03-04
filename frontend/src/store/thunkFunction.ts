@@ -91,3 +91,45 @@ export const getCartItems = createAsyncThunk(
     }
   }
 );
+
+export const removeCartItem = createAsyncThunk(
+  "user/removeCartItem",
+  async (productId: string, thunkAPI) => {
+    try {
+      const response = await axiosInstance.delete(
+        `/users/cart?productId=${productId}`
+      );
+
+      response.data.cart.forEach((cartItem: ICartItem) => {
+        response.data.productInfo.forEach(
+          (product: IProduct, index: number) => {
+            if (cartItem.id === product._id) {
+              response.data.productInfo[index].quantity = cartItem.quantity;
+            }
+          }
+        );
+      });
+
+      return response.data;
+    } catch (err: any) {
+      console.log(err);
+      return thunkAPI.rejectWithValue(err.response.data || err.message);
+    }
+  }
+);
+
+export const payProducts = createAsyncThunk(
+  "user/payProducts",
+  async (body: object, thunkAPI) => {
+    try {
+      console.log("전달받은 body 정보? ", body);
+      const response = await axiosInstance.post(`/users/payment`, body);
+
+      console.log("상품 결제시 response 정보", response);
+      return response.data;
+    } catch (err: any) {
+      console.log(err);
+      return thunkAPI.rejectWithValue(err.response.data || err.message);
+    }
+  }
+);

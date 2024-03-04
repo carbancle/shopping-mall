@@ -16,6 +16,7 @@ const routes = [
 
 export default function NavItem({ mobile }: { mobile?: true }) {
   const isAuth = useAppSelector(state => state.user?.isAuth);
+  const cart = useAppSelector(state => state.user?.userData?.cart);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -42,7 +43,7 @@ export default function NavItem({ mobile }: { mobile?: true }) {
               <Link to={to}>
                 {icon}
                 <span className="absolute top-0 inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -right-3">
-                  {1 /*cart?.length*/}
+                  {cart ? cart.length : "0"}
                 </span>
               </Link>
             </li>

@@ -28,7 +28,6 @@ export async function connectToDataBase() {
     const connected = await mongoose.connect(process.env.MONGO_URI);
     console.log(`mongoDb connected: ${connected.connection.host}`);
   } catch (e) {
-    console.log(e);
     process.exit(1);
   }
 }

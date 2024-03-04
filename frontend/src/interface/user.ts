@@ -1,3 +1,5 @@
+import { IProduct } from "./Product";
+
 export interface IRegisterUser {
   email: string;
   name: string;
@@ -14,3 +16,5 @@ export interface ICartItem {
   id: string;
   quantity: number;
 }
+
+export interface ICartDetail extends IProduct, ICartItem {}
