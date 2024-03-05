@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client-build": "cd frontend && npm ci && npm run build && cd ../",
-    "backend-build": "cd backend && npm ci --dev && npm run build && cd ../",
+    "client-build": "cd frontend && npm install && npm run build && cd ../",
+    "backend-build": "cd backend && npm install --dev && npm run build && cd ../",
     "prebuild": "npm run client-build && npm run backend-build && mv ./frontend/dist ./backend/dist",
     "start": "cd backend && npm run start"
   },
