@@ -11,6 +11,7 @@ import {
 } from "./thunkFunction";
 import { toast } from "react-toastify";
 import { ICartDetail, ICartItem } from "../interface/User";
+import { IPaymentProductInfo } from "../interface/Payment";
 
 interface IInitialState {
   userData: {
@@ -20,6 +21,7 @@ interface IInitialState {
     role: number;
     image: string;
     cart?: [] | Array<ICartItem>;
+    history?: [] | Array<IPaymentProductInfo>;
   };
   cartDetail?: [] | Array<ICartDetail>;
   isAuth: boolean;
