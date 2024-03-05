@@ -45,3 +45,9 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
 app.listen(PORT, () => {
   console.log(`${PORT}번에서 실행이 되었습니다.`);
 });
+
+// 실제 배포 후, SSR시 build 된 frontend 정보를 가져온다
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "../dist/index.html"));
+});
+app.use(express.static(path.join(__dirname, "../dist")));
