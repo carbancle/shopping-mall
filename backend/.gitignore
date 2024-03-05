@@ -1,6 +1,8 @@
 # folder
 node_modules
 uploads
+dist
+compile
 
 # file
 .env
