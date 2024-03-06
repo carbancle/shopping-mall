@@ -48,6 +48,6 @@ app.listen(PORT, () => {
 
 // 실제 배포 후, SSR시 build 된 frontend 정보를 가져온다
 app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "../dist/build/index.html"));
+  res.sendFile(path.join(__dirname, "../build/index.html"));
 });
-app.use(express.static(path.join(__dirname, "../dist/build")));
+app.use(express.static(path.join(__dirname, "../build")));
