@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.PROD ? "" : "http://localhost:8080",
+  baseURL: import.meta.env.PROD ? "" : "http://localhost:3000",
 });
 
 // 요청을 보내기 전에 어떠한 행동을 하고 싶을 때

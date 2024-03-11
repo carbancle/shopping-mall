@@ -20,8 +20,8 @@ export default function HistoryPage() {
         </thead>
         <tbody>
           {history?.map((item) => (
-            <tr key={item.id} className="border-b">
-              <td>{item.id}</td>
+            <tr key={item.paymentId} className="border-b">
+              <td>{item.paymentId}</td>
               <td>{item.price}</td>
               <td>{item.quantity}</td>
               <td>{dayjs(item.dateOfPurchase).format("YYYY-MM-DD HH:mm:ss")}</td>
