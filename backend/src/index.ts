@@ -13,7 +13,7 @@ const HOST = "0.0.0.0";
 const app: Application = express();
 
 // app.use("가상경로", "실제경로") 형식으로도 사용 가능
-app.use(express.static(path.join(__dirname, "../uploads")));
+app.use(express.static(path.join(__dirname, "src/uploads")));
 // cross-origin resource sharing:
 //프론트서버와 백엔드서버의 port가 다른 경우, cors를 활성화 하여 데이터 공유를 할 수 있도록 함
 app.use(cors());
@@ -46,8 +46,4 @@ app.listen(PORT, () => {
   console.log(`${PORT}번에서 실행이 되었습니다.`);
 });
 
-// 실제 배포 후, SSR시 build 된 frontend 정보를 가져온다
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "/build/index.html"));
-});
-app.use(express.static(path.join(__dirname, "/build")));
+app.get("/", (req, res) => res.send("Hello World!"));
