@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8080;
 const app: Application = express();
 
 // app.use("가상경로", "실제경로") 형식으로도 사용 가능
-app.use(express.static(path.join("./uploads")));
+app.use(express.static(path.join("../src/uploads")));
 // cross-origin resource sharing:
 //프론트서버와 백엔드서버의 port가 다른 경우, cors를 활성화 하여 데이터 공유를 할 수 있도록 함
 app.use(cors());
@@ -32,8 +32,8 @@ async function connectToDataBase() {
 }
 connectToDataBase();
 
-app.use("/users", require("./routes/users"));
-app.use("/products", require("./routes/products"));
+app.use("/users", require("../src/routes/users"));
+app.use("/products", require("../src/routes/products"));
 
 // error 처리, error 타입을 임시값으로 any로 설정, 추후 수정
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
