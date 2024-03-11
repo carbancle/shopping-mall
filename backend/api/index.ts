@@ -8,19 +8,18 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const PORT = process.env.PORT || 8080;
-const HOST = "0.0.0.0";
 
 const app: Application = express();
 
 // app.use("가상경로", "실제경로") 형식으로도 사용 가능
-app.use(express.static(path.join(__dirname, "src/uploads")));
+app.use(express.static(path.join("./uploads")));
 // cross-origin resource sharing:
 //프론트서버와 백엔드서버의 port가 다른 경우, cors를 활성화 하여 데이터 공유를 할 수 있도록 함
 app.use(cors());
 // json 요청을 읽을 수 없기 때문에, json을 받을 수 있도록 설정
 app.use(express.json());
 
-export async function connectToDataBase() {
+async function connectToDataBase() {
   try {
     if (!process.env.MONGO_URI) {
       throw new Error("mongo url not defined");
