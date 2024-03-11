@@ -6,7 +6,7 @@ import { SortOrder } from "mongoose";
 const router = Router();
 const storage = multer.diskStorage({
   destination: function (req: Request, file, cb) {
-    cb(null, "src/uploads");
+    cb(null, "../uploads");
   },
   filename: function (req: Request, file, cb) {
     cb(null, `${Date.now()}_${file.originalname}`);
