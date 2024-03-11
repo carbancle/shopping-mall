@@ -19,21 +19,21 @@ app.use(cors());
 // json 요청을 읽을 수 없기 때문에, json을 받을 수 있도록 설정
 app.use(express.json());
 
-// export async function connectToDataBase() {
-//   try {
-//     if (!process.env.MONGO_URI) {
-//       throw new Error("mongo url not defined");
-//     }
-//     const connected = await mongoose.connect(process.env.MONGO_URI);
-//     console.log(`mongoDb connected: ${connected.connection.host}`);
-//   } catch (e) {
-//     process.exit(1);
-//   }
-// }
-// connectToDataBase();
+export async function connectToDataBase() {
+  try {
+    if (!process.env.MONGO_URI) {
+      throw new Error("mongo url not defined");
+    }
+    const connected = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`mongoDb connected: ${connected.connection.host}`);
+  } catch (e) {
+    process.exit(1);
+  }
+}
+connectToDataBase();
 
-// app.use("/users", require("./routes/users"));
-// app.use("/products", require("./routes/products"));
+app.use("/users", require("./routes/users"));
+app.use("/products", require("./routes/products"));
 
 // error 처리, error 타입을 임시값으로 any로 설정, 추후 수정
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
