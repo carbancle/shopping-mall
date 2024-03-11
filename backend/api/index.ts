@@ -19,7 +19,7 @@ app.use(cors());
 // json 요청을 읽을 수 없기 때문에, json을 받을 수 있도록 설정
 app.use(express.json());
 
-export async function connectToDataBase() {
+async function connectToDataBase() {
   try {
     if (!process.env.MONGO_URI) {
       throw new Error("mongo url not defined");
