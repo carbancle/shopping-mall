@@ -1,5 +1,3 @@
-import { IPaymentProductInfo } from "./../../../frontend/src/interface/Payment";
-import { ICartDetail, ICartItem } from "./../../../frontend/src/interface/User";
 import { Router, Request, Response } from "express";
 import { User } from "../models/User";
 import jwt from "jsonwebtoken";
@@ -7,6 +5,31 @@ import { auth } from "../middleware/auth";
 import { Product } from "../models/Product";
 import { Payment } from "../models/Payment";
 import async from "async";
+
+interface ICartDetail {
+  _id: string;
+  images: [];
+  title: string;
+  description: string;
+  continents: number;
+  price: number;
+  sold: number;
+  quantity: number;
+}
+
+interface ICartItem {
+  id: string;
+  quantity: number;
+}
+
+interface IPaymentProductInfo {
+  dateOfPurchase: string;
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  paymentId: string;
+}
 
 process.env.JWT_SECRET;
 
