@@ -38,6 +38,10 @@ function App() {
             {
               path: "register",
               element: <RegisterPage />
+            },
+            {
+              path: "test",
+              element: <TestPage />
             }
           ]
         },
@@ -65,10 +69,6 @@ function App() {
         },
       ]
     },
-    {
-      path: "/test",
-      element: <TestPage />
-    }
   ]);
   return (
     <div className='App'>

@@ -1,15 +1,16 @@
 import express, { Request, Response, Application, NextFunction } from "express";
 import path from "path";
 import cors from "cors";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { connectToDB } from "./utils/connectMongoDB";
 
 // For env File
 dotenv.config();
 
 const PORT = process.env.PORT || 8080;
-
 const app: Application = express();
+
+connectToDB();
 
 // app.use("가상경로", "실제경로") 형식으로도 사용 가능
 app.use(express.static(path.join("../src/uploads")));
@@ -18,19 +19,6 @@ app.use(express.static(path.join("../src/uploads")));
 app.use(cors());
 // json 요청을 읽을 수 없기 때문에, json을 받을 수 있도록 설정
 app.use(express.json());
-
-async function connectToDataBase() {
-  try {
-    if (!process.env.MONGO_URI) {
-      throw new Error("mongo url not defined");
-    }
-    const connected = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`mongoDb connected: ${connected.connection.host}`);
-  } catch (e) {
-    process.exit(1);
-  }
-}
-connectToDataBase();
 
 app.use("/users", require("../src/routes/users"));
 app.use("/products", require("../src/routes/products"));
