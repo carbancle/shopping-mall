@@ -10,6 +10,7 @@ import UploadProductPage from './pages/UploadProducePage';
 import DetailProductPage from './pages/DetailProductPage';
 import CartPage from './pages/CartPage';
 import HistoryPage from './pages/HistoryPage';
+import TestPage from './pages/TestPage/TestPage';
 
 
 
@@ -64,6 +65,10 @@ function App() {
         },
       ]
     },
+    {
+      path: "/test",
+      element: <TestPage />
+    }
   ]);
   return (
     <div className='App'>

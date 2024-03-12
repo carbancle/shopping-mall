@@ -34,6 +34,7 @@ connectToDataBase();
 
 app.use("/users", require("../src/routes/users"));
 app.use("/products", require("../src/routes/products"));
+app.use("/route-test", require("../src/routes/route-test"));
 
 // error 처리, error 타입을 임시값으로 any로 설정, 추후 수정
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
