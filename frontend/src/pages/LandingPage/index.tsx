@@ -7,7 +7,7 @@ import { axiosInstance } from "../../utils/axios";
 import { LandingStatus } from "../../interface/LandingStatus";
 import { IProduct } from "../../interface/Product";
 import { continents, prices } from "../../utils/filterData";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   const limit = 4;
@@ -144,7 +144,7 @@ export default function LandingPage() {
           </button>
         </div>
       }
-      <div><Link to={"/test"}>Test Page</Link></div>
+      {/* <div><Link to={"/test"}>Test Page</Link></div> */}
     </section>
   )
 }
