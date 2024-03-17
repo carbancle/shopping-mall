@@ -1,25 +1,42 @@
 import Dropzone from "react-dropzone"
 import { axiosInstance } from "../utils/axios";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../utils/connectFirebase";
 
 export default function FileUpload({ images, onImageChange }: {
   images: string[],
   onImageChange: any,
 }) {
-
   const handleDrop = async (files: any) => {
-    const formData = new FormData();
+    let formData = new FormData();
 
-    const config = {
-      headers: { "content-type": "multipart/form-data" }
+    // firebase setting
+    if (import.meta.env.PROD) {
+      const locationRef = ref(storage, `products/${files[0].name}`);
+      const result = await uploadBytes(locationRef, files[0]);
+      const url = await getDownloadURL(result.ref);
+
+      try {
+        onImageChange([...images, url])
+      } catch (err) {
+        console.log(err);
+      }
     }
 
-    formData.append("file", files[0]);
+    // local setting
+    if (import.meta.env.DEV) {
+      const config = {
+        headers: { "content-type": "multipart/form-data" }
+      }
 
-    try {
-      const response = await axiosInstance.post('/products/image', formData, config);
-      onImageChange([...images, response.data.fileName]);
-    } catch (e) {
-      console.log(e);
+      formData.append("file", files[0]);
+
+      try {
+        const response = await axiosInstance.post('/products/image', formData, config);
+        onImageChange([...images, response.data.fileName]);
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 
@@ -49,9 +66,16 @@ export default function FileUpload({ images, onImageChange }: {
           <div key={image} onClick={() => handleDelete(image)}
             className="cursor-pointer"
           >
-            <img src={`${import.meta.env.VITE_SERVER_URL}/${image}`} alt={image}
-              className="min-w-[300px] h-[300px]"
-            />
+            {import.meta.env.PROD &&
+              <img src={`${image}`} alt={image}
+                className="min-w-[300px] h-[300px]"
+              />
+            }
+            {import.meta.env.DEV &&
+              <img src={`${import.meta.env.VITE_SERVER_URL}/${image}`} alt={image}
+                className="min-w-[300px] h-[300px]"
+              />
+            }
           </div>
         ))}
       </div>
