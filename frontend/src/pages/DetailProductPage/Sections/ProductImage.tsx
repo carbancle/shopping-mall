@@ -10,13 +10,24 @@ export default function ProductImage(product: IProduct) {
     if (product?.images?.length > 0) {
       let images: any = [];
 
-      product.images.map((imageName: string) => {
-        return images.push({
-          original: `${import.meta.env.VITE_SERVER_URL}/${imageName}`,
-          thumbnail: `${import.meta.env.VITE_SERVER_URL}/${imageName}`,
+      if (import.meta.env.PROD) {
+        product.images.map((imageName: string) => {
+          return images.push({
+            original: `${imageName}`,
+            thumbnail: `${imageName}`,
+          })
         })
-      })
-      setImages(images);
+        setImages(images);
+      }
+      if (import.meta.env.DEV) {
+        product.images.map((imageName: string) => {
+          return images.push({
+            original: `${import.meta.env.VITE_SERVER_URL}/${imageName}`,
+            thumbnail: `${import.meta.env.VITE_SERVER_URL}/${imageName}`,
+          })
+        })
+        setImages(images);
+      }
     }
   }, [product])
 
